@@ -1,0 +1,52 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "debug": "ts-node-dev --inspect=0.0.0.0 --respawn --transpile-only src/index.ts",
+    "start": "node build/src/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "knex:migrate:make": "knex --knexfile src/Database/KnexFile.ts migrate:make -x ts",
+    "knex:migrate:latest": "knex --knexfile src/Database/KnexFile.ts migrate:latest",
+    "knex:migrate:rollback": "knex --knexfile src/Database/KnexFile.ts migrate:rollback",
+    "knex:seed:make": "knex --knexfile src/Database/KnexFile.ts seed:make -x ts",
+    "knex:seed:run": "knex --knexfile src/Database/KnexFile.ts seed:run",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "accesscontrol": "^2.2.1",
+    "axios": "^0.24.0",
+    "bcrypt": "^5.0.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "date-format": "^3.0.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "formidable": "^2.0.1",
+    "helmet": "^5.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.15",
+    "mysql2": "^2.3.3",
+    "reflect-metadata": "^0.1.13",
+    "underscore": "^1.13.2",
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/compression": "^1.7.2",
+    "@types/cors": "^2.8.10",
+    "@types/formidable": "^2.0.0",
+    "@types/node": "^17.0.7",
+    "@types/underscore": "^1.11.4",
+    "@types/uuid": "^8.3.3",
+    "ts-node": "^10.4.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.4"
+  }
+}

@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8.0.25
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysqldbdata:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: adocao
+      MYSQL_PASSWORD: root
+    networks:
+      - net-bhut-treinamento
+
+  bhut-treinamento-nodejs:
+    container_name: bhut-treinamento-nodejs
+    image: bhut/treinamento-nodejs:latest
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+    depends_on:
+      - mysql
+    volumes:
+      - ./app:/application
+    environment:
+      TZ: "America/Fortaleza"
+    env_file:
+      - .env
+    networks:
+      - net-bhut-treinamento
+    command: [ "yarn", "dev" ]
+
+networks:
+  net-bhut-treinamento:
+    external: true
+
+volumes:
+  MySqlData:

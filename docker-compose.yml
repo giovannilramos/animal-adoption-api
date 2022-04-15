@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+  bhut-treinamento-nodejs:
+    build:
+      context: .
+      dockerfile: docker/nodejs/Dockerfile
+    image: bhut/treinamento-nodejs:latest

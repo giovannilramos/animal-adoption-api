@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+    yarn:
+      user: root
+      image: bhut/treinamento-nodejs:latest
+      volumes:
+        - ./app:/application
+      environment:
+        TZ: "America/Fortaleza"
+      env_file:
+        - .env
+      networks:
+        - net-bhut-treinamento
+      entrypoint: yarn
+
+networks:
+  net-bhut-treinamento:
+    external: true
