@@ -30,7 +30,7 @@ router.put('/user/:id', [AuthenticatorMiddleware], (req: Request, res: Response,
 });
 
 //People
-router.post('/people', /*[AuthenticatorMiddleware],*/ (req: Request, res: Response, next: NextFunction) => {
+router.post('/people', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
   return createPeopleController.handle(req, res, next);
 });
 

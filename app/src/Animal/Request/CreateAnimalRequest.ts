@@ -15,6 +15,5 @@ export class CreateAnimalRequest {
 
   @IsNotEmpty()
   @Expose()
-  @MaxLength(3)
   public age: number;
 }
