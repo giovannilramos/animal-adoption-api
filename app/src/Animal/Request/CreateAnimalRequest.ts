@@ -1,5 +1,5 @@
-import { Expose } from 'class-transformer';
-import { IsDate, IsNotEmpty, Max, Min } from 'class-validator';
+import {Expose} from 'class-transformer';
+import {IsEnum, IsNotEmpty, MaxLength, MinLength} from 'class-validator';
 
 export class CreateAnimalRequest {
   @IsNotEmpty()
@@ -7,34 +7,14 @@ export class CreateAnimalRequest {
   public name: string;
 
   @IsNotEmpty()
-  @Min(11)
-  @Max(11)
+  @MinLength(1)
+  @MaxLength(1)
+  @IsEnum(['M', 'F'])
   @Expose()
-  public cpf: string;
-
-  @IsNotEmpty()
-  @Min(9)
-  @Max(9)
-  @Expose()
-  public rg: string;
-
-  @IsNotEmpty()
-  @IsDate()
-  @Expose()
-  public birth_date: Date;
-
-  @IsNotEmpty()
-  @Min(8)
-  @Max(8)
-  @Expose()
-  public cep: string;
+  public sex: string;
 
   @IsNotEmpty()
   @Expose()
-  public country: string;
-
-  @IsNotEmpty()
-  @Expose()
-  public number: string;
-
+  @MaxLength(3)
+  public age: number;
 }

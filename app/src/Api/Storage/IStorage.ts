@@ -4,4 +4,6 @@ export interface IStorage<T> {
   update(entity: T): Promise<T>;
 
   findAll(page?: number, pageSize?: number): Promise<T[]>;
+
+  delete(id: string | number): Promise<void>;
 }

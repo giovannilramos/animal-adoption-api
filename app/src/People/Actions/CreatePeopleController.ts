@@ -8,7 +8,7 @@ export class CreatePeopleController {
 
   public async handle(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      const dto = (await this.transformer.fromApi(req.body)) as PeopleDto;
+      const dto = <PeopleDto>await this.transformer.fromApi(req.body);
 
       await this.service.invoke(dto);
 

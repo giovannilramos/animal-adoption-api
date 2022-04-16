@@ -10,6 +10,7 @@ import {
 import {authController} from "./Auth";
 import {AuthenticatorMiddleware} from "./Auth/Middleware/AuthMiddleware";
 import {createPeopleController} from "./People";
+import {createAnimalController} from "./Animal";
 
 const router = express.Router();
 
@@ -34,8 +35,15 @@ router.put('/user/:id', [AuthenticatorMiddleware], (req: Request, res: Response,
     return updateUserByIdController.handle(req, res, next);
 });
 
+//People
 router.post('/people', [AuthenticatorMiddleware],(req: Request, res: Response, next: NextFunction) => {
     return createPeopleController.handle(req, res, next);
+});
+
+
+//Animals
+router.post('/animals', [AuthenticatorMiddleware],(req: Request, res: Response, next: NextFunction) => {
+    return createAnimalController.handle(req, res, next);
 });
 
 export {router};
