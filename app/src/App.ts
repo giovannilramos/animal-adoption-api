@@ -2,7 +2,7 @@ import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
-import {logMiddleware} from "./Api/Middleware/RegisterLoggerMiddleware";
+import { logMiddleware } from './Api/Middleware/RegisterLoggerMiddleware';
 
 export class App {
   constructor() {

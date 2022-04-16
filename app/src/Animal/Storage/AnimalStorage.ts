@@ -1,7 +1,7 @@
 import { MySqlDbErrorException } from '../../Api/Exception/MySqlDbErrorException';
-import KnexInstance from '../../KnexInstance';
 import { AnimalEntity } from './Entity/AnimalEntity';
 import { IAnimalStorage } from './IAnimalStorage';
+import { KnexInstance } from '../../Database/KnexConnection';
 
 export class AnimalStorage implements IAnimalStorage {
   public async findByName(name?: string, page?: number, pageSize?: number): Promise<AnimalEntity[]> {
@@ -41,30 +41,6 @@ export class AnimalStorage implements IAnimalStorage {
     try {
       await KnexInstance<AnimalEntity>('animals').update(entity).where({ uuid: entity.uuid });
       return entity;
-    } catch (e) {
-      throw new MySqlDbErrorException(e);
-    }
-  }
-
-  public async findByCpf(cpf: string): Promise<AnimalEntity> {
-    try {
-      const entity: AnimalEntity[] = await KnexInstance<AnimalEntity>('animals').where({ cpf }).limit(1);
-      if (entity && entity.length > 0) {
-        return entity[0];
-      }
-      return null;
-    } catch (e) {
-      throw new MySqlDbErrorException(e);
-    }
-  }
-
-  public async findByRg(rg: string): Promise<AnimalEntity> {
-    try {
-      const entity: AnimalEntity[] = await KnexInstance<AnimalEntity>('animals').where('rg', rg).limit(1);
-      if (entity && entity.length > 0) {
-        return entity[0];
-      }
-      return null;
     } catch (e) {
       throw new MySqlDbErrorException(e);
     }

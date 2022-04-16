@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { IApiTransformer } from '../../Api/Transformers/IApiTransformer';
 import { IDatabaseTransformer } from '../../Api/Transformers/IDatabaseTransformer';
-import ClassValidator from '../../Api/Utils/ClassValidator';
+import { ClassValidator } from '../../Api/Utils/ClassValidator';
 import { AnimalDto } from '../Dto/AnimalDto';
 import { CreateAnimalRequest } from '../Request/CreateAnimalRequest';
 import { AnimalEntity } from '../Storage/Entity/AnimalEntity';
@@ -22,12 +22,8 @@ export class CreateAnimalTransformer implements IApiTransformer<AnimalDto, any>,
     return {
       uuid: uuidv4(),
       name: requestObject.name,
-      cpf: requestObject.cpf,
-      rg: requestObject.rg,
-      cep: requestObject.cep,
-      country: requestObject.country,
-      number: requestObject.number,
-      birth_date: requestObject.birth_date,
+      age: requestObject.age,
+      sex: requestObject.sex,
     };
   }
 
@@ -35,12 +31,8 @@ export class CreateAnimalTransformer implements IApiTransformer<AnimalDto, any>,
     return {
       uuid: dto.uuid,
       name: dto.name,
-      cpf: dto.cpf,
-      rg: dto.rg,
-      cep: dto.cep,
-      country: dto.country,
-      number: dto.number,
-      birth_date: dto.birth_date,
+      age: dto.age,
+      sex: dto.sex,
     };
   }
 }

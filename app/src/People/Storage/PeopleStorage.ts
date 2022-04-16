@@ -1,7 +1,7 @@
 import { MySqlDbErrorException } from '../../Api/Exception/MySqlDbErrorException';
 import { PeopleEntity } from './Entity/PeopleEntity';
 import { IPeopleStorage } from './IPeopleStorage';
-import {KnexInstance} from "../../Database/KnexConnection";
+import { KnexInstance } from '../../Database/KnexConnection';
 
 export class PeopleStorage implements IPeopleStorage {
   public async findByName(name?: string, page?: number, pageSize?: number): Promise<PeopleEntity[]> {

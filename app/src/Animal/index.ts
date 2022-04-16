@@ -4,13 +4,13 @@ import { AnimalStorage } from './Storage/AnimalStorage';
 import { CreateAnimalTransformer } from './Transformer/CreateAnimalTransformer';
 
 // Storages
-export const peopleStorage = new AnimalStorage();
+export const animalStorage = new AnimalStorage();
 
 // Transformers
-const createPeopleTransformer = new CreateAnimalTransformer();
+const createAnimalTransformer = new CreateAnimalTransformer();
 
 // Services
-const createPeopleService = new CreateAnimalService(peopleStorage, createPeopleTransformer);
+const createAnimalService = new CreateAnimalService(animalStorage, createAnimalTransformer);
 
 // Controllers
-export const createPeopleController = new CreateAnimalController(createPeopleTransformer, createPeopleService);
+export const createAnimalController = new CreateAnimalController(createAnimalTransformer, createAnimalService);
