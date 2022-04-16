@@ -1,8 +1,8 @@
-import AuthTransformer from "./Transformer/AuthTransformer";
-import AuthService from "./Services/AuthService";
-import {UserStorage} from "../User/Storage/UserStorage";
-import AuthTokenController from "./Actions/AuthController";
-import AuthValidationService from "./Services/AuthValidationService";
+import AuthTransformer from './Transformer/AuthTransformer';
+import AuthService from './Services/AuthService';
+import { UserStorage } from '../User/Storage/UserStorage';
+import AuthTokenController from './Actions/AuthController';
+import AuthValidationService from './Services/AuthValidationService';
 
 const userStorage = new UserStorage();
 
@@ -13,4 +13,4 @@ const authValidateService = new AuthValidationService(userStorage);
 
 const authController = new AuthTokenController(authTransformer, authService);
 
-export {authController, authValidateService}
+export { authController, authValidateService };

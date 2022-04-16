@@ -1,5 +1,5 @@
 export interface GetUserResponse {
-    uuid: string;
-    name: string;
-    email: string;
+  uuid: string;
+  name: string;
+  email: string;
 }

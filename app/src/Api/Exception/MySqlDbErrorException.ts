@@ -1,7 +1,7 @@
-import {ServerInternalErrorException} from './ServerInternalErrorException';
+import { ServerInternalErrorException } from './ServerInternalErrorException';
 
 export class MySqlDbErrorException extends ServerInternalErrorException {
-    constructor(error: Error) {
-        super(error.stack);
-    }
+  constructor(error: Error) {
+    super(error.stack);
+  }
 }

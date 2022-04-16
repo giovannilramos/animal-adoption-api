@@ -1,6 +1,6 @@
-import {AnimalDto} from '../Dto/AnimalDto';
-import {IAnimalStorage} from '../Storage/IAnimalStorage';
-import {CreateAnimalTransformer} from '../Transformer/CreateAnimalTransformer';
+import { AnimalDto } from '../Dto/AnimalDto';
+import { IAnimalStorage } from '../Storage/IAnimalStorage';
+import { CreateAnimalTransformer } from '../Transformer/CreateAnimalTransformer';
 
 export class CreateAnimalService {
   constructor(private readonly storage: IAnimalStorage, private readonly transformer: CreateAnimalTransformer) {}

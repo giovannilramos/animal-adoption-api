@@ -1,7 +1,7 @@
 import { MySqlDbErrorException } from '../../Api/Exception/MySqlDbErrorException';
 import { AnimalEntity } from './Entity/AnimalEntity';
 import { IAnimalStorage } from './IAnimalStorage';
-import {KnexInstance} from "../../Database/KnexConnection";
+import { KnexInstance } from '../../Database/KnexConnection';
 
 export class AnimalStorage implements IAnimalStorage {
   public async findByName(name?: string, page?: number, pageSize?: number): Promise<AnimalEntity[]> {

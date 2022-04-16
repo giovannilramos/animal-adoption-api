@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { IApiTransformer } from '../../Api/Transformers/IApiTransformer';
 import { IDatabaseTransformer } from '../../Api/Transformers/IDatabaseTransformer';
-import {ClassValidator} from '../../Api/Utils/ClassValidator';
+import { ClassValidator } from '../../Api/Utils/ClassValidator';
 import { AnimalDto } from '../Dto/AnimalDto';
 import { CreateAnimalRequest } from '../Request/CreateAnimalRequest';
 import { AnimalEntity } from '../Storage/Entity/AnimalEntity';
@@ -23,7 +23,7 @@ export class CreateAnimalTransformer implements IApiTransformer<AnimalDto, any>,
       uuid: uuidv4(),
       name: requestObject.name,
       age: requestObject.age,
-      sex: requestObject.sex
+      sex: requestObject.sex,
     };
   }
 

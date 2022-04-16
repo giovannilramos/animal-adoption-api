@@ -38,4 +38,4 @@ networks:
     external: true
 
 volumes:
-  MySqlData:
+  mysqldbdata:

@@ -1,8 +1,8 @@
-import {RolesEnum} from "../../AccessController/Enums/RolesEnum";
+import { RolesEnum } from '../../AccessController/Enums/RolesEnum';
 
 export interface PayloadDto {
-    uuid: string;
-    active?: boolean;
-    role?: RolesEnum;
-    token?: string;
+  uuid: string;
+  active?: boolean;
+  role?: RolesEnum;
+  token?: string;
 }
