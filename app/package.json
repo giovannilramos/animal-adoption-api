@@ -15,7 +15,9 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "yarn lint --fix",
     "format": "prettier --check \"**/*.+(js|ts|json|md)\"",
-    "format:fix": "prettier --write \"**/*.+(js|ts|json|md)\""
+    "format:fix": "prettier --write \"**/*.+(js|ts|json|md)\"",
+    "clean": "rm -rf build/*",
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
