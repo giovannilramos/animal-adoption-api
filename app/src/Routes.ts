@@ -39,7 +39,6 @@ router.post('/animals', [AuthenticatorMiddleware], (req: Request, res: Response,
   return createAnimalController.handle(req, res, next);
 });
 
-
 //Vaccines
 router.post('/vaccines', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
   return createVaccineController.handle(req, res, next);
