@@ -35,7 +35,7 @@ export class CreateUserTransformer implements IApiTransformer<UserDto, any>, IDa
       name: dto.name,
       email: dto.email,
       password: await Hash.generateHash(dto.password),
-      active: false,
+      active: true,
     };
   }
 }

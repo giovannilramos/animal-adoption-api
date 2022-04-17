@@ -13,7 +13,6 @@ export const AuthenticatorMiddleware = async (req: Request, res: Response, next:
     ContextRequestHelper.setContextRequest({
       requestId: requestId && String(requestId),
       userId: authorizationPayload.uuid,
-      userRole: authorizationPayload.role,
     });
     next();
   } catch (error) {
