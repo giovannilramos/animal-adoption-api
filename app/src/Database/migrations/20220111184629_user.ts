@@ -8,8 +8,6 @@ export async function up(knex: Knex): Promise<void> {
     table.boolean('active').notNullable();
     table.string('password').notNullable();
     table.string('email').notNullable();
-    table.string('url_S3').nullable();
-    table.string('role', 20).notNullable();
     table.timestamp('created_at').defaultTo(knex.fn.now());
     table.timestamp('updated_at').defaultTo(knex.fn.now());
   });

@@ -1,10 +1,10 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { createUserController, getAllUserController, getUserController, updateUserByIdController, updateUserController } from './User';
-
 import { authController } from './Auth';
 import { AuthenticatorMiddleware } from './Auth/Middleware/AuthMiddleware';
 import { createPeopleController } from './People';
 import { createAnimalController } from './Animal';
+import { createVaccineController } from './Vaccine';
 
 const router = express.Router();
 
@@ -37,6 +37,12 @@ router.post('/people', [AuthenticatorMiddleware], (req: Request, res: Response, 
 //Animals
 router.post('/animals', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
   return createAnimalController.handle(req, res, next);
+});
+
+
+//Vaccines
+router.post('/vaccines', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
+  return createVaccineController.handle(req, res, next);
 });
 
 export { router };
