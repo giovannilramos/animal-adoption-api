@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { IsDate, IsNotEmpty, MaxLength, MinLength } from 'class-validator';
+import { IsNotEmpty, MaxLength, MinLength } from 'class-validator';
 
 export class CreatePeopleRequest {
   @IsNotEmpty()
@@ -23,16 +23,22 @@ export class CreatePeopleRequest {
   public birth_date: Date;
 
   @IsNotEmpty()
-  @MaxLength(8)
-  @MinLength(8)
-  @Expose()
-  public cep: string;
-
-  @IsNotEmpty()
   @Expose()
   public country: string;
 
   @IsNotEmpty()
   @Expose()
   public number: string;
+
+  @IsNotEmpty()
+  @Expose()
+  public city: string;
+
+  @IsNotEmpty()
+  @Expose()
+  public district: string;
+
+  @IsNotEmpty()
+  @Expose()
+  public street: string;
 }

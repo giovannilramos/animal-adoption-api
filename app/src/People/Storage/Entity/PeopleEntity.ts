@@ -3,7 +3,9 @@ export interface PeopleEntity {
   cpf?: string;
   name?: string;
   rg?: string;
-  cep?: string;
+  street?: string;
+  district?: string;
+  city?: string;
   country?: string;
   number?: string;
   birth_date?: Date;
