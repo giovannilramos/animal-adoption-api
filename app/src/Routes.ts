@@ -3,7 +3,7 @@ import { createUserController, getAllUserController, getUserController, updateUs
 import { authController } from './Auth';
 import { AuthenticatorMiddleware } from './Auth/Middleware/AuthMiddleware';
 import { createPeopleController } from './People';
-import { createAnimalController, getAllAnimalController } from './Animal';
+import { createAnimalController, getAllAnimalController, getAnimalController } from './Animal';
 import { createVaccineController } from './Vaccine';
 import { createAdoptionDataController } from './AdoptionData';
 
@@ -41,6 +41,9 @@ router.post('/animals', [AuthenticatorMiddleware], (req: Request, res: Response,
 });
 router.get('/animals', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
   return getAllAnimalController.handle(req, res, next);
+});
+router.get('/animals/:uuid', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
+  return getAnimalController.handle(req, res, next);
 });
 
 //Vaccines
