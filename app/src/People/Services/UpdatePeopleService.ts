@@ -1,8 +1,8 @@
 import { PeopleDto } from '../Dto/PeopleDto';
 import { IPeopleStorage } from '../Storage/IPeopleStorage';
 import { ResourceNotFoundException } from '../../Api/Exception/ResourceNotFoundException';
-import {ConflictAlreadyExistsException} from "../../Api/Exception/ConflictAlreadyExistsException";
-import {UpdatePeopleTransformer} from "../Transformer/UpdatePeopleTransformer";
+import { ConflictAlreadyExistsException } from '../../Api/Exception/ConflictAlreadyExistsException';
+import { UpdatePeopleTransformer } from '../Transformer/UpdatePeopleTransformer';
 
 export class UpdatePeopleService {
   constructor(private readonly storage: IPeopleStorage, private readonly transformer: UpdatePeopleTransformer) {}
@@ -14,7 +14,7 @@ export class UpdatePeopleService {
     }
 
     if (!entity.active) {
-      throw new ConflictAlreadyExistsException(null, "Person inactive, please activate this person first");
+      throw new ConflictAlreadyExistsException(null, 'Person inactive, please activate this person first');
     }
     entity = await this.transformer.toEntity(dto, entity);
 

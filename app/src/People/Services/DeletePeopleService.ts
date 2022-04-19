@@ -1,6 +1,6 @@
-import {PeopleDto} from '../Dto/PeopleDto';
-import {IPeopleStorage} from '../Storage/IPeopleStorage';
-import {ResourceNotFoundException} from "../../Api/Exception/ResourceNotFoundException";
+import { PeopleDto } from '../Dto/PeopleDto';
+import { IPeopleStorage } from '../Storage/IPeopleStorage';
+import { ResourceNotFoundException } from '../../Api/Exception/ResourceNotFoundException';
 
 export class DeletePeopleService {
   constructor(private readonly storage: IPeopleStorage) {}

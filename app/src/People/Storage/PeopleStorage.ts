@@ -18,7 +18,7 @@ export class PeopleStorage implements IPeopleStorage {
 
   public async delete(id: string): Promise<void> {
     try {
-      await KnexInstance<PeopleEntity>('people').delete().where({uuid: id});
+      await KnexInstance<PeopleEntity>('people').delete().where({ uuid: id });
     } catch (e) {
       throw new MySqlDbErrorException(e);
     }

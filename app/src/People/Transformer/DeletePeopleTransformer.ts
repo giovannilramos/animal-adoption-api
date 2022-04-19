@@ -1,9 +1,9 @@
-import {IApiTransformer} from '../../Api/Transformers/IApiTransformer';
-import {IDatabaseTransformer} from '../../Api/Transformers/IDatabaseTransformer';
-import {ClassValidator} from '../../Api/Utils/ClassValidator';
-import {PeopleDto} from '../Dto/PeopleDto';
-import {PeopleEntity} from '../Storage/Entity/PeopleEntity';
-import {GetPeopleRequest} from "../Request/GetPeopleRequest";
+import { IApiTransformer } from '../../Api/Transformers/IApiTransformer';
+import { IDatabaseTransformer } from '../../Api/Transformers/IDatabaseTransformer';
+import { ClassValidator } from '../../Api/Utils/ClassValidator';
+import { PeopleDto } from '../Dto/PeopleDto';
+import { PeopleEntity } from '../Storage/Entity/PeopleEntity';
+import { GetPeopleRequest } from '../Request/GetPeopleRequest';
 
 export class DeletePeopleTransformer implements IApiTransformer<PeopleDto, any>, IDatabaseTransformer<PeopleDto, PeopleEntity> {
   public async toApi(dto: PeopleDto): Promise<any> {

@@ -1,7 +1,7 @@
-import {NextFunction, Request, Response} from 'express';
-import {IApiTransformer} from '../../Api/Transformers/IApiTransformer';
-import {PeopleDto} from '../Dto/PeopleDto';
-import {DeletePeopleService} from "../Services/DeletePeopleService";
+import { NextFunction, Request, Response } from 'express';
+import { IApiTransformer } from '../../Api/Transformers/IApiTransformer';
+import { PeopleDto } from '../Dto/PeopleDto';
+import { DeletePeopleService } from '../Services/DeletePeopleService';
 
 export class DeletePeopleController {
   constructor(private readonly transformer: IApiTransformer<PeopleDto, any>, private readonly service: DeletePeopleService) {}

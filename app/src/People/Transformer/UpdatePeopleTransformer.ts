@@ -4,7 +4,7 @@ import { PeopleResponse } from '../Response/PeopleResponse';
 import { ClassValidator } from '../../Api/Utils/ClassValidator';
 import { PeopleDto } from '../Dto/PeopleDto';
 import { PeopleEntity } from '../Storage/Entity/PeopleEntity';
-import {UpdatePeopleRequest} from "../Request/UpdatePeopleRequest";
+import { UpdatePeopleRequest } from '../Request/UpdatePeopleRequest';
 
 export class UpdatePeopleTransformer implements IApiTransformer<PeopleDto, PeopleResponse>, IDatabaseTransformer<PeopleDto, PeopleEntity> {
   public async toEntity(dto: PeopleDto, entity?: PeopleEntity): Promise<PeopleEntity> {
@@ -44,10 +44,10 @@ export class UpdatePeopleTransformer implements IApiTransformer<PeopleDto, Peopl
   }
 
   public async toDto(entity?: PeopleEntity): Promise<PeopleDto> {
-    throw new Error("Method not implemented");
+    throw new Error('Method not implemented');
   }
 
   public async toApi(dto: PeopleDto): Promise<PeopleResponse> {
-    throw new Error("Method not implemented");
+    throw new Error('Method not implemented');
   }
 }

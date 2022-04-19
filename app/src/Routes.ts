@@ -2,14 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import { createUserController, getAllUserController, getUserController, updateUserByIdController, updateUserController } from './User';
 import { authController } from './Auth';
 import { AuthenticatorMiddleware } from './Auth/Middleware/AuthMiddleware';
-import {
-  activatePeopleController,
-  createPeopleController, deletePeopleController,
-  getAllPeopleController,
-  getPeopleController,
-  inactivatePeopleController,
-  updatePeopleController
-} from './People';
+import { activatePeopleController, createPeopleController, deletePeopleController, getAllPeopleController, getPeopleController, inactivatePeopleController, updatePeopleController } from './People';
 import { createAnimalController, getAllAnimalController, getAnimalController } from './Animal';
 import { createVaccineController } from './Vaccine';
 import { createAdoptionDataController } from './AdoptionData';
@@ -41,18 +34,12 @@ router.put('/user/:id', [AuthenticatorMiddleware], (req: Request, res: Response,
 router.post('/people', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
   return createPeopleController.handle(req, res, next);
 });
-router.patch(
-  '/people/:uuid/activate',
-  [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
-    return activatePeopleController.handle(req, res, next);
-  }
-);
-router.patch(
-  '/people/:uuid/inactivate',
-  [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
-    return inactivatePeopleController.handle(req, res, next);
-  }
-);
+router.patch('/people/:uuid/activate', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
+  return activatePeopleController.handle(req, res, next);
+});
+router.patch('/people/:uuid/inactivate', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
+  return inactivatePeopleController.handle(req, res, next);
+});
 router.get('/people', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
   return getAllPeopleController.handle(req, res, next);
 });
@@ -62,9 +49,12 @@ router.get('/people/:uuid', [AuthenticatorMiddleware], (req: Request, res: Respo
 router.put('/people/:uuid', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
   return updatePeopleController.handle(req, res, next);
 });
-router.delete('/people/:uuid', /*[AuthenticatorMiddleware],*/ (req: Request, res: Response, next: NextFunction) => {
-  return deletePeopleController.handle(req, res, next);
-});
+router.delete(
+  '/people/:uuid',
+  /*[AuthenticatorMiddleware],*/ (req: Request, res: Response, next: NextFunction) => {
+    return deletePeopleController.handle(req, res, next);
+  }
+);
 
 //Animals
 router.post('/animals', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {

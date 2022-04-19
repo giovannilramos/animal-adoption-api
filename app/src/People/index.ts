@@ -14,12 +14,12 @@ import { ActivatePeopleTransformer } from './Transformer/ActivatePeopleTransform
 import { InactivatePeopleController } from './Actions/InactivatePeopleController';
 import { InactivatePeopleService } from './Services/InactivatePeopleService';
 import { InactivatePeopleTransformer } from './Transformer/InactivatePeopleTransformer';
-import {UpdatePeopleTransformer} from "./Transformer/UpdatePeopleTransformer";
-import {UpdatePeopleService} from "./Services/UpdatePeopleService";
-import {UpdatePeopleController} from "./Actions/UpdatePeopleController";
-import {DeletePeopleTransformer} from "./Transformer/DeletePeopleTransformer";
-import {DeletePeopleService} from "./Services/DeletePeopleService";
-import {DeletePeopleController} from "./Actions/DeletePeopleController";
+import { UpdatePeopleTransformer } from './Transformer/UpdatePeopleTransformer';
+import { UpdatePeopleService } from './Services/UpdatePeopleService';
+import { UpdatePeopleController } from './Actions/UpdatePeopleController';
+import { DeletePeopleTransformer } from './Transformer/DeletePeopleTransformer';
+import { DeletePeopleService } from './Services/DeletePeopleService';
+import { DeletePeopleController } from './Actions/DeletePeopleController';
 
 // Storages
 export const peopleStorage = new PeopleStorage();

@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import {IsNotEmpty, IsUUID, MaxLength, MinLength} from 'class-validator';
+import { IsNotEmpty, IsUUID, MaxLength, MinLength } from 'class-validator';
 
 export class UpdatePeopleRequest {
   @IsNotEmpty()
