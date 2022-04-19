@@ -16,4 +16,8 @@ export class CreateAnimalRequest {
   @IsNotEmpty()
   @Expose()
   public age: number;
+
+  @IsNotEmpty()
+  @Expose()
+  public species: string;
 }

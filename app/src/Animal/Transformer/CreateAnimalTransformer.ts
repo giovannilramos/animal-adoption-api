@@ -24,6 +24,7 @@ export class CreateAnimalTransformer implements IApiTransformer<AnimalDto, any>,
       name: requestObject.name,
       age: requestObject.age,
       sex: requestObject.sex,
+      species: requestObject.species,
     };
   }
 
@@ -33,6 +34,7 @@ export class CreateAnimalTransformer implements IApiTransformer<AnimalDto, any>,
       name: dto.name,
       age: dto.age,
       sex: dto.sex,
+      species: dto.species,
     };
   }
 }

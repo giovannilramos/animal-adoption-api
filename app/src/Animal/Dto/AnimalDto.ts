@@ -3,4 +3,5 @@ export interface AnimalDto {
   name?: string;
   age?: number;
   sex?: string;
+  species?: string;
 }

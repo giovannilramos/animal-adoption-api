@@ -46,6 +46,18 @@ export class AnimalStorage implements IAnimalStorage {
     }
   }
 
+  public async findBySpecies(species?: string, page?: number, pageSize?: number): Promise<AnimalEntity[]> {
+    try {
+      const query = KnexInstance.from('animals').orderBy('species').offset(page).limit(pageSize);
+      if (species && species.length > 0) {
+        query.where('species', 'LIKE', '%' + species + '%');
+      }
+      return (await query) as AnimalEntity[];
+    } catch (e) {
+      throw new MySqlDbErrorException(e);
+    }
+  }
+
   public async findById(id: string): Promise<AnimalEntity> {
     try {
       const entity: AnimalEntity[] = await KnexInstance<AnimalEntity>('animals').where('uuid', id).limit(1);

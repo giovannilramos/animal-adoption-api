@@ -5,6 +5,7 @@ import { AuthenticatorMiddleware } from './Auth/Middleware/AuthMiddleware';
 import { createPeopleController } from './People';
 import { createAnimalController } from './Animal';
 import { createVaccineController } from './Vaccine';
+import { createAdoptionDataController } from './AdoptionData';
 
 const router = express.Router();
 
@@ -42,6 +43,11 @@ router.post('/animals', [AuthenticatorMiddleware], (req: Request, res: Response,
 //Vaccines
 router.post('/vaccines', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
   return createVaccineController.handle(req, res, next);
+});
+
+//Adoption Data
+router.post('/adoption-data/:uuid_animals', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
+  return createAdoptionDataController.handle(req, res, next);
 });
 
 export { router };
