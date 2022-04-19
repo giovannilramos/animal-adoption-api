@@ -17,6 +17,9 @@ import { InactivatePeopleTransformer } from './Transformer/InactivatePeopleTrans
 import {UpdatePeopleTransformer} from "./Transformer/UpdatePeopleTransformer";
 import {UpdatePeopleService} from "./Services/UpdatePeopleService";
 import {UpdatePeopleController} from "./Actions/UpdatePeopleController";
+import {DeletePeopleTransformer} from "./Transformer/DeletePeopleTransformer";
+import {DeletePeopleService} from "./Services/DeletePeopleService";
+import {DeletePeopleController} from "./Actions/DeletePeopleController";
 
 // Storages
 export const peopleStorage = new PeopleStorage();
@@ -28,6 +31,7 @@ const createPeopleTransformer = new CreatePeopleTransformer();
 const getAllPeopleTransformer = new GetAllPeopleTransformer();
 const getPeopleTransformer = new GetPeopleTransformer();
 const updatePeopleTransformer = new UpdatePeopleTransformer();
+const deletePeopleTransformer = new DeletePeopleTransformer();
 
 // Services
 const activatePeopleService = new ActivatePeopleService(peopleStorage);
@@ -36,6 +40,7 @@ const createPeopleService = new CreatePeopleService(peopleStorage, createPeopleT
 const getAllPeopleService = new GetAllPeopleService(peopleStorage, getAllPeopleTransformer);
 const getPeopleService = new GetPeopleService(peopleStorage, getPeopleTransformer);
 const updatePeopleService = new UpdatePeopleService(peopleStorage, updatePeopleTransformer);
+const deletePeopleService = new DeletePeopleService(peopleStorage);
 
 // Controllers
 export const activatePeopleController = new ActivatePeopleController(activatePeopleTransformer, activatePeopleService);
@@ -44,3 +49,4 @@ export const createPeopleController = new CreatePeopleController(createPeopleTra
 export const getAllPeopleController = new GetAllPeopleController(getAllPeopleTransformer, getAllPeopleService);
 export const getPeopleController = new GetPeopleController(getPeopleTransformer, getPeopleService);
 export const updatePeopleController = new UpdatePeopleController(updatePeopleTransformer, updatePeopleService);
+export const deletePeopleController = new DeletePeopleController(deletePeopleTransformer, deletePeopleService);

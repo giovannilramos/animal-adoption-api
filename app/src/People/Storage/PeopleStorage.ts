@@ -17,7 +17,11 @@ export class PeopleStorage implements IPeopleStorage {
   }
 
   public async delete(id: string): Promise<void> {
-    throw new Error('Method not implemented');
+    try {
+      await KnexInstance<PeopleEntity>('people').delete().where({uuid: id});
+    } catch (e) {
+      throw new MySqlDbErrorException(e);
+    }
   }
 
   public async findAll(page?: number, pageSize?: number): Promise<PeopleEntity[]> {

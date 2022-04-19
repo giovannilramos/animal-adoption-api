@@ -4,7 +4,7 @@ import { authController } from './Auth';
 import { AuthenticatorMiddleware } from './Auth/Middleware/AuthMiddleware';
 import {
   activatePeopleController,
-  createPeopleController,
+  createPeopleController, deletePeopleController,
   getAllPeopleController,
   getPeopleController,
   inactivatePeopleController,
@@ -53,14 +53,17 @@ router.patch(
     return inactivatePeopleController.handle(req, res, next);
   }
 );
-router.get('/people', /*[AuthenticatorMiddleware],*/ (req: Request, res: Response, next: NextFunction) => {
+router.get('/people', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
   return getAllPeopleController.handle(req, res, next);
 });
 router.get('/people/:uuid', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
   return getPeopleController.handle(req, res, next);
 });
-router.put('/people/:uuid', /*[AuthenticatorMiddleware],*/ (req: Request, res: Response, next: NextFunction) => {
+router.put('/people/:uuid', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
   return updatePeopleController.handle(req, res, next);
+});
+router.delete('/people/:uuid', /*[AuthenticatorMiddleware],*/ (req: Request, res: Response, next: NextFunction) => {
+  return deletePeopleController.handle(req, res, next);
 });
 
 //Animals
