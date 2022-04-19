@@ -14,6 +14,9 @@ import { ActivatePeopleTransformer } from './Transformer/ActivatePeopleTransform
 import { InactivatePeopleController } from './Actions/InactivatePeopleController';
 import { InactivatePeopleService } from './Services/InactivatePeopleService';
 import { InactivatePeopleTransformer } from './Transformer/InactivatePeopleTransformer';
+import {UpdatePeopleTransformer} from "./Transformer/UpdatePeopleTransformer";
+import {UpdatePeopleService} from "./Services/UpdatePeopleService";
+import {UpdatePeopleController} from "./Actions/UpdatePeopleController";
 
 // Storages
 export const peopleStorage = new PeopleStorage();
@@ -24,6 +27,7 @@ const inactivatePeopleTransformer = new InactivatePeopleTransformer();
 const createPeopleTransformer = new CreatePeopleTransformer();
 const getAllPeopleTransformer = new GetAllPeopleTransformer();
 const getPeopleTransformer = new GetPeopleTransformer();
+const updatePeopleTransformer = new UpdatePeopleTransformer();
 
 // Services
 const activatePeopleService = new ActivatePeopleService(peopleStorage);
@@ -31,6 +35,7 @@ const inactivatePeopleService = new InactivatePeopleService(peopleStorage);
 const createPeopleService = new CreatePeopleService(peopleStorage, createPeopleTransformer);
 const getAllPeopleService = new GetAllPeopleService(peopleStorage, getAllPeopleTransformer);
 const getPeopleService = new GetPeopleService(peopleStorage, getPeopleTransformer);
+const updatePeopleService = new UpdatePeopleService(peopleStorage, updatePeopleTransformer);
 
 // Controllers
 export const activatePeopleController = new ActivatePeopleController(activatePeopleTransformer, activatePeopleService);
@@ -38,3 +43,4 @@ export const inactivatePeopleController = new InactivatePeopleController(inactiv
 export const createPeopleController = new CreatePeopleController(createPeopleTransformer, createPeopleService);
 export const getAllPeopleController = new GetAllPeopleController(getAllPeopleTransformer, getAllPeopleService);
 export const getPeopleController = new GetPeopleController(getPeopleTransformer, getPeopleService);
+export const updatePeopleController = new UpdatePeopleController(updatePeopleTransformer, updatePeopleService);
