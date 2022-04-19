@@ -11,7 +11,7 @@ export class CreatePeopleService {
     const rgExist = await this.storage.findByRg(dto.rg);
 
     if (cpfExist || rgExist) {
-      throw new ConflictAlreadyExistsException(null, 'Essa pessoa já possui um registro');
+      throw new ConflictAlreadyExistsException(null, 'This person is already registered');
     }
 
     const entity = await this.transformer.toEntity(dto);

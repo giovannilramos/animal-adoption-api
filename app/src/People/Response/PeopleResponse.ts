@@ -9,4 +9,5 @@ export interface PeopleResponse {
   country?: string;
   number?: string;
   birth_date?: Date;
+  active?: boolean;
 }

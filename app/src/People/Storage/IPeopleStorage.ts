@@ -6,4 +6,5 @@ export interface IPeopleStorage extends IStorage<PeopleEntity> {
   findByCpf(cpf: string): Promise<PeopleEntity>;
   findByRg(rg: string): Promise<PeopleEntity>;
   findById(id: string): Promise<PeopleEntity>;
+  updateStatus(id: string, status: boolean): Promise<void>;
 }

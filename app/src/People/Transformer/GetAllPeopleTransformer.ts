@@ -33,6 +33,7 @@ export class GetAllPeopleTransformer implements IApiTransformer<PeopleDto, Peopl
         country: el.country,
         number: el.number,
         birth_date: el.birth_date,
+        active: el.active,
       };
     });
   }
@@ -50,6 +51,7 @@ export class GetAllPeopleTransformer implements IApiTransformer<PeopleDto, Peopl
         country: el.country,
         number: el.number,
         birth_date: el.birth_date,
+        active: el.active,
       };
     });
   }

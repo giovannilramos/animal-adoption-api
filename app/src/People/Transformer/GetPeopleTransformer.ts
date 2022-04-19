@@ -32,6 +32,7 @@ export class GetPeopleTransformer implements IApiTransformer<PeopleDto, PeopleRe
       country: entity.country,
       number: entity.number,
       birth_date: entity.birth_date,
+      active: entity.active,
     };
   }
 
@@ -47,6 +48,7 @@ export class GetPeopleTransformer implements IApiTransformer<PeopleDto, PeopleRe
       country: dto.country,
       number: dto.number,
       birth_date: dto.birth_date,
+      active: dto.active,
     };
   }
 }

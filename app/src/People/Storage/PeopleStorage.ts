@@ -46,6 +46,14 @@ export class PeopleStorage implements IPeopleStorage {
     }
   }
 
+  public async updateStatus(id: string, status: boolean): Promise<void> {
+    try {
+      await KnexInstance<PeopleEntity>('people').update({ active: status }).where({ uuid: id });
+    } catch (e) {
+      throw new MySqlDbErrorException(e);
+    }
+  }
+
   public async findByCpf(cpf: string): Promise<PeopleEntity> {
     try {
       const entity: PeopleEntity[] = await KnexInstance<PeopleEntity>('people').where({ cpf }).limit(1);

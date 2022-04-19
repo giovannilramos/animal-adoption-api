@@ -1,5 +1,5 @@
 export interface PeopleEntity {
-  uuid: string;
+  uuid?: string;
   cpf?: string;
   name?: string;
   rg?: string;
@@ -9,6 +9,7 @@ export interface PeopleEntity {
   country?: string;
   number?: string;
   birth_date?: Date;
+  active?: boolean;
   created_at?: Date;
   updated_at?: Date;
 }

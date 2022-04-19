@@ -30,6 +30,7 @@ export class CreatePeopleTransformer implements IApiTransformer<PeopleDto, any>,
       country: requestObject.country,
       number: requestObject.number,
       birth_date: requestObject.birth_date,
+      active: true,
     };
   }
 
@@ -45,6 +46,7 @@ export class CreatePeopleTransformer implements IApiTransformer<PeopleDto, any>,
       country: dto.country,
       number: dto.number,
       birth_date: dto.birth_date,
+      active: true,
     };
   }
 }
