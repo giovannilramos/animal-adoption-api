@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import { createUserController, getAllUserController, getUserController, updateUserByIdController, updateUserController } from './User';
 import { authController } from './Auth';
 import { AuthenticatorMiddleware } from './Auth/Middleware/AuthMiddleware';
-import { createPeopleController } from './People';
+import { createPeopleController, getAllPeopleController, getPeopleController } from './People';
 import { createAnimalController, getAllAnimalController, getAnimalController } from './Animal';
 import { createVaccineController } from './Vaccine';
 import { createAdoptionDataController } from './AdoptionData';
@@ -33,6 +33,12 @@ router.put('/user/:id', [AuthenticatorMiddleware], (req: Request, res: Response,
 //People
 router.post('/people', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
   return createPeopleController.handle(req, res, next);
+});
+router.get('/people', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
+  return getAllPeopleController.handle(req, res, next);
+});
+router.get('/people/:uuid', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
+  return getPeopleController.handle(req, res, next);
 });
 
 //Animals

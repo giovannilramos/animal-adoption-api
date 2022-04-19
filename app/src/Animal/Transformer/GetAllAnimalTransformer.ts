@@ -3,6 +3,8 @@ import { IDatabaseTransformer } from '../../Api/Transformers/IDatabaseTransforme
 import { AnimalDto } from '../Dto/AnimalDto';
 import { AnimalResponse } from '../Response/AnimalResponse';
 import { AnimalEntity } from '../Storage/Entity/AnimalEntity';
+import { ClassValidator } from '../../Api/Utils/ClassValidator';
+import { GetAllAnimalRequest } from '../Request/GetAllAnimalRequest';
 
 export class GetAllAnimalTransformer implements IApiTransformer<AnimalDto, AnimalResponse>, IDatabaseTransformer<AnimalDto, AnimalEntity> {
   public async toEntity(dto: AnimalDto): Promise<AnimalEntity> {
@@ -10,7 +12,12 @@ export class GetAllAnimalTransformer implements IApiTransformer<AnimalDto, Anima
   }
 
   public async fromApi(object: any, headers?: any): Promise<AnimalDto> {
-    throw new Error('Method not implemented');
+    const requestObject = await ClassValidator.transformerToModel(GetAllAnimalRequest, object);
+
+    await ClassValidator.validateInput(requestObject);
+    return {
+      name: requestObject?.name || null,
+    };
   }
 
   public async toDto(entity?: AnimalEntity[]): Promise<AnimalDto[]> {

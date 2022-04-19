@@ -1,5 +1,5 @@
-export interface PeopleDto {
-  uuid?: string;
+export interface PeopleResponse {
+  uuid: string;
   cpf?: string;
   name?: string;
   rg?: string;
