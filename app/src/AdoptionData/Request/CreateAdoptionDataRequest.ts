@@ -12,4 +12,8 @@ export class CreateAdoptionDataRequest {
   @MinLength(11)
   @Expose()
   public cpf_person: string;
+
+  @IsNotEmpty()
+  @Expose()
+  public adoption_date: Date;
 }

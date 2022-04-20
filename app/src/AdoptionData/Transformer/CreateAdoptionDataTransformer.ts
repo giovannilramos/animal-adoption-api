@@ -22,7 +22,7 @@ export class CreateAdoptionDataTransformer implements IApiTransformer<AdoptionDa
     await ClassValidator.validateInput(requestObject);
     return {
       uuid: uuidv4(),
-      adoption_date: new Date(),
+      adoption_date: requestObject.adoption_date,
       uuid_animals: requestObject.uuid_animals,
       cpf_people: requestObject.cpf_person,
     };
