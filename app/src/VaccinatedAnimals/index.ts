@@ -24,7 +24,7 @@ const getAllVaccinesByAnimalIdTransformer = new GetAllVaccinesByAnimalIdTransfor
 // Services
 const createVaccinatedAnimalsService = new CreateVaccinatedAnimalsService(adoptionDataStorage, createVaccinatedAnimalsTransformer, vaccineStorage, animalStorage);
 const getAllVaccinatedAnimalsService = new GetAllVaccinatedAnimalsService(adoptionDataStorage, getAllVaccinatedAnimalsTransformer);
-const getAllVaccinesByAnimalIdService = new GetAllVaccinesByAnimalIdService(adoptionDataStorage, getAllVaccinesByAnimalIdTransformer);
+const getAllVaccinesByAnimalIdService = new GetAllVaccinesByAnimalIdService(adoptionDataStorage, getAllVaccinesByAnimalIdTransformer, animalStorage);
 
 // Controllers
 export const createVaccinatedAnimalsController = new CreateVaccinatedAnimalsController(createVaccinatedAnimalsTransformer, createVaccinatedAnimalsService);

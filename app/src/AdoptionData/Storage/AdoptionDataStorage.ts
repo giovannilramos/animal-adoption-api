@@ -16,6 +16,14 @@ export class AdoptionDataStorage implements IAdoptionDataStorage {
     }
   }
 
+  public async findByPersonId(uuid_people: string, page?: number, pageSize?: number): Promise<AdoptionDataEntity[]> {
+    try {
+      return await KnexInstance<AdoptionDataEntity>('adoption_data').where('uuid_people', uuid_people).orderBy('adoption_date', 'desc').offset(page).limit(pageSize);
+    } catch (e) {
+      throw new MySqlDbErrorException(e);
+    }
+  }
+
   public async delete(id: string): Promise<void> {
     throw new Error('Method not implemented');
   }

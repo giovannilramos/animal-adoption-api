@@ -9,7 +9,7 @@ export class GetAllVaccinesByAnimalIdController {
 
   public async handle(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      const request = <VaccinatedAnimalsDto>await this.transformer.fromApi(req.params);
+      const request = <VaccinatedAnimalsDto>await this.transformer.fromApi({ ...req.params, ...req.body });
       const dto = await this.service.invoke(request);
       const response = await this.transformer.toApi(dto);
       return res.status(200).send(response);
