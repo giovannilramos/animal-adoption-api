@@ -4,13 +4,21 @@ import { IVaccinatedAnimalsStorage } from './IVaccinatedAnimalsStorage';
 import { KnexInstance } from '../../Database/KnexConnection';
 
 export class VaccinatedAnimalsStorage implements IVaccinatedAnimalsStorage {
-  public async findByAdoptionDate(adoption_date?: Date, page?: number, pageSize?: number): Promise<VaccinatedAnimalsEntity[]> {
+  public async findByVaccinationDate(vaccination_date?: Date, page?: number, pageSize?: number): Promise<VaccinatedAnimalsEntity[]> {
     try {
-      const query = KnexInstance.from('vaccinated_animals').orderBy('adoption_date').offset(page).limit(pageSize);
-      if (adoption_date) {
-        query.where('adoption_date', adoption_date);
+      const query = KnexInstance.from('vaccinated_animals').orderBy('vaccination_date', 'desc').offset(page).limit(pageSize);
+      if (vaccination_date) {
+        query.where('vaccinated_animals', vaccination_date);
       }
       return (await query) as VaccinatedAnimalsEntity[];
+    } catch (e) {
+      throw new MySqlDbErrorException(e);
+    }
+  }
+
+  public async findByAnimalId(uuid_animals: string, page?: number, pageSize?: number): Promise<VaccinatedAnimalsEntity[]> {
+    try {
+      return await KnexInstance<VaccinatedAnimalsEntity>('vaccinated_animals').where('uuid_animals', uuid_animals).orderBy('vaccination_date', 'desc').offset(page).limit(pageSize);
     } catch (e) {
       throw new MySqlDbErrorException(e);
     }

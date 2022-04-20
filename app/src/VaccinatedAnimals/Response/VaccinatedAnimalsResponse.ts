@@ -1,4 +1,4 @@
-export interface VaccinatedAnimalsDto {
+export interface VaccinatedAnimalsResponse {
   uuid?: string;
   uuid_animals?: string;
   uuid_vaccines?: string;

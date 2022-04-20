@@ -6,7 +6,7 @@ import { activatePeopleController, createPeopleController, deletePeopleControlle
 import { createAnimalController, getAllAnimalController, getAnimalController } from './Animal';
 import { createVaccineController, getAllVaccineController, getVaccineController } from './Vaccine';
 import { createAdoptionDataController } from './AdoptionData';
-import { createVaccinatedAnimalsController } from './VaccinatedAnimals';
+import { createVaccinatedAnimalsController, getAllVaccinatedAnimalsController, getAllVaccinesByAnimalIdController } from './VaccinatedAnimals';
 
 const router = express.Router();
 
@@ -84,6 +84,12 @@ router.post('/adoption-data/:uuid_animals', [AuthenticatorMiddleware], (req: Req
 //Vaccinated Animals
 router.post('/vaccinated-animals/:uuid_animals', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
   return createVaccinatedAnimalsController.handle(req, res, next);
+});
+router.get('/vaccinated-animals', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
+  return getAllVaccinatedAnimalsController.handle(req, res, next);
+});
+router.get('/vaccinated-animals/:uuid_animals', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
+  return getAllVaccinesByAnimalIdController.handle(req, res, next);
 });
 
 export { router };
