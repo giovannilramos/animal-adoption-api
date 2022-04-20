@@ -4,7 +4,7 @@ import { authController } from './Auth';
 import { AuthenticatorMiddleware } from './Auth/Middleware/AuthMiddleware';
 import { activatePeopleController, createPeopleController, deletePeopleController, getAllPeopleController, getPeopleController, inactivatePeopleController, updatePeopleController } from './People';
 import { createAnimalController, getAllAnimalController, getAnimalController } from './Animal';
-import { createVaccineController } from './Vaccine';
+import { createVaccineController, getAllVaccineController, getVaccineController } from './Vaccine';
 import { createAdoptionDataController } from './AdoptionData';
 
 const router = express.Router();
@@ -70,6 +70,12 @@ router.get('/animals/:uuid', [AuthenticatorMiddleware], (req: Request, res: Resp
 //Vaccines
 router.post('/vaccines', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
   return createVaccineController.handle(req, res, next);
+});
+router.get('/vaccines', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
+  return getAllVaccineController.handle(req, res, next);
+});
+router.get('/vaccines/:uuid', [AuthenticatorMiddleware], (req: Request, res: Response, next: NextFunction) => {
+  return getVaccineController.handle(req, res, next);
 });
 
 //Adoption Data

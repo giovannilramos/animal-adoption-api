@@ -1,4 +1,4 @@
 export interface VaccineDto {
-  uuid: string;
+  uuid?: string;
   name?: string;
 }
