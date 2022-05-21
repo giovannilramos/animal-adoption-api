@@ -14,6 +14,7 @@ router.post('/auth/token', (req: Request, res: Response, next: NextFunction) => 
   return authController.handle(req, res, next);
 });
 
+//User
 router.post('/user', (req: Request, res: Response, next: NextFunction) => {
   return createUserController.handle(req, res, next);
 });
