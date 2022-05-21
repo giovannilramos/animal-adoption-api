@@ -168,6 +168,101 @@ paths:
           description: 'Internal error in service'
       security:
         - JwtAuth: [ ]
+  # ANIMALS ROUTES
+  /animals:
+    post:
+      summary: 'Create an animal'
+      description: 'Create an animal and insert into system'
+      operationId: 'createAnimal'
+      tags:
+        - Animals
+      requestBody:
+        description: 'Data to create an animal'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAnimalRequest'
+        required: true
+      responses:
+        '204':
+          description: 'Request processed'
+
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '403':
+          description: 'Access denied'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
+    get:
+      summary: 'List animals'
+      description: 'Return a list of animals'
+      operationId: 'getAnimalsList'
+      tags:
+        - Animals
+      responses:
+        '200':
+          description: 'Sucess'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AnimalResponse'
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '403':
+          description: 'Access denied'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
+  /animals/{uuid}:
+    get:
+      summary: 'Adopt an animal'
+      description: 'Adopt an animal giving person data'
+      operationId: 'getAnimalById'
+      tags:
+        - Animals
+      parameters:
+        - name: uuid
+          in: path
+          description: 'Uuid of animal'
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: '35d00fad-9f28-437d-934c-6b798a23a72b'
+      responses:
+        '200':
+          description: 'Request processed'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimalResponse'
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '403':
+          description: 'Access denied'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
 components:
   schemas:
     AdoptionDataResponse:
@@ -197,6 +292,39 @@ components:
           type: string
           description: 'Date when adoption has made'
           example: '2022-06-01'
+    AnimalResponse:
+      type: object
+      required:
+        - uuid
+        - name
+        - age
+        - sex
+        - species
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: 'Uuid of animal'
+          example: 'dcbb404d-fe3b-4d81-8e8a-6c6a169b1d84'
+        name:
+          type: string
+          description: 'Name of animal'
+          example: 'Zeus'
+        age:
+          type: integer
+          description: 'Age of animal'
+          example: 1
+        sex:
+          type: string
+          description: 'Sex of animal'
+          enum:
+            - 'M'
+            - 'F'
+          example: 'M'
+        species:
+          type: string
+          description: 'Specie of animal'
+          example: 'Dog'
     AuthRequest:
       type: object
       required:
@@ -244,6 +372,33 @@ components:
         cpf_person:
           type: string
           description: 'Tax id of person who will adopt an animal'
+    CreateAnimalRequest:
+      type: object
+      required:
+        - name
+        - age
+        - sex
+        - species
+      properties:
+        name:
+          type: string
+          description: 'Name of animal'
+          example: 'Zeus'
+        age:
+          type: integer
+          description: 'Age of animal'
+          example: 1
+        sex:
+          type: string
+          description: 'Sex of animal'
+          enum:
+            - 'M'
+            - 'F'
+          example: 'M'
+        species:
+          type: string
+          description: 'Specie of animal'
+          example: 'Dog'
     ValidationErrorResponse:
       required:
         - code
