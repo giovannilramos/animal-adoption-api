@@ -28,6 +28,7 @@ tags:
   - name: Users
     description: Users related endpoints
 paths:
+  # AUTH ROUTES
   /auth/token:
     post:
       summary: 'Create authentication'
@@ -59,8 +60,143 @@ paths:
           description: 'Access denied'
         '500':
           description: 'Internal error in service'
+  # ADOPTION DATA ROUTES
+  /adoption-data:
+    get:
+      summary: 'List adoption data'
+      description: 'Return a list of adoption data'
+      operationId: 'getAdoptionDataList'
+      tags:
+        - Adoption Data
+      responses:
+        '200':
+          description: 'Sucess'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdoptionDataResponse'
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '403':
+          description: 'Access denied'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
+  /adoption-data/{cpf_person}:
+    get:
+      summary: 'Adoption data by person document'
+      description: 'Return adoption data by person document'
+      operationId: 'getAdoptionDataByPerson'
+      tags:
+        - Adoption Data
+      parameters:
+        - name: cpf_person
+          in: path
+          description: 'Document of person'
+          required: true
+          schema:
+            type: string
+            example: '123.456.789-10'
+      responses:
+        '200':
+          description: 'Sucess'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdoptionDataResponse'
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '403':
+          description: 'Access denied'
+        '404':
+          description: Not found
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
+  /adoption-data/{uuid_aninals}:
+    post:
+      summary: 'Adopt an animal'
+      description: 'Adopt an animal giving person data'
+      operationId: 'postAdoptionData'
+      tags:
+        - Adoption Data
+      requestBody:
+        description: 'Data to adopt an animal'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAdoptionDataRequest'
+        required: true
+      parameters:
+        - name: uuid_aninals
+          in: path
+          description: 'Uuid of animal'
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: '35d00fad-9f28-437d-934c-6b798a23a72b'
+      responses:
+        '204':
+          description: 'Request processed'
+
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '403':
+          description: 'Access denied'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
 components:
   schemas:
+    AdoptionDataResponse:
+      type: object
+      required:
+        - uuid
+        - uuid_animals
+        - uuid_people
+        - adoption_date
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: 'uuid of adoption data'
+          example: '44cb27c4-a4ab-4cdc-a63f-afa0c181c3a5'
+        uuid_animals:
+          type: string
+          format: uuid
+          description: 'uuid of animal'
+          example: '35d00fad-9f28-437d-934c-6b798a23a72b'
+        uuid_people:
+          type: string
+          format: uuid
+          description: 'uuid of person who adopted the animal'
+          example: '24720bc0-0e39-4cdd-9cb1-2860ecaa30fa'
+        adoption_date:
+          type: string
+          description: 'Date when adoption has made'
+          example: '2022-06-01'
     AuthRequest:
       type: object
       required:
@@ -95,6 +231,19 @@ components:
           type: integer
           description: 'Minutes to token expires'
           example: 60
+    CreateAdoptionDataRequest:
+      type: object
+      required:
+        - adoption_date
+        - cpf_person
+      properties:
+        adoption_date:
+          type: string
+          description: 'Date the animal will be adopted'
+          example: '2022-06-01'
+        cpf_person:
+          type: string
+          description: 'Tax id of person who will adopt an animal'
     ValidationErrorResponse:
       required:
         - code
