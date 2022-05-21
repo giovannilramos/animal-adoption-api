@@ -1,516 +1,67 @@
 openapi: 3.0.0
 servers:
-  - url: https://bhut.treinamento.com.br
+  - url: https://www.bhut.com.br
 info:
   version: 1.0.0
-  title: bhut treinamento API
-  description: API para treinamento dos estagiários da bhut
+  title: Animal Adoption API
+  description: API to animal adoption web site
   contact:
-    name: BHUT LTDA
-    url: 'https://www.bhut.com.br'
-    email: 'contato@bhut.com.br'
+    name: Animal Adoption
+    url: 'https://www.animal-adoption.com.br'
+    email: 'contato@animal-adoption.com.br'
   license:
     name: MIT
     url : https://api.github.com/licenses/mit
 tags:
-  - name: Api
-    description: Endpoints relacionados com API
-  - name: Autenticação
-    description: Endpoints relacionados com Autenticação
-  - name: Carro
-    description: Endpoints relacionados com Carro
-  - name: Cliente
-    description: Endpoints relacionados com Clientes
-  - name: Pedido
-    description: Endpoints relacionados com Pedidos
-  - name: Usuário
-    description: Endpoints relacionados com Usuário
+  - name: Auth
+    description: Authentication related endpoints
+  - name: Adoption Data
+    description: Adoption Data related endpoints
+  - name: Animals
+    description: Animals related endpoints
+  - name: People
+    description: People related endpoints
+  - name: Vaccines
+    description: Vaccines related endpoints
+  - name: Vaccinated Animals
+    description: Vaccinated Animals related endpoints
+  - name: Users
+    description: Users related endpoints
 paths:
-  /:
-    get:
-      summary: API manifesto
-      description: Retorna o manifesto da api
-      tags:
-        - Api
-      operationId: manifest
-      responses:
-        '200':
-          description: O manifesto da api
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  timestamp:
-                    type: string
-                    example: '2020-03-03T15:45:02.000+01:00'
-                  version:
-                    type: string
-                    example: '1.0.0'
-  /is-alive:
-    get:
-      summary: API healthcheck
-      description: Retorna uma resposta se a api está online.
-      tags:
-        - Api
-      operationId: healthCheck
-      responses:
-        '200':
-          description: A API está online.
-          content:
-            text/html:
-              schema:
-                type: string
-                example: 'OK!'
   /auth/token:
     post:
+      summary: 'Create authentication'
+      description: 'Generate JWT token'
+      operationId: 'postAuthToken'
       tags:
-        - Autenticação
-      summary: Autentica usuário
-      description: Autentica um usuário existente
-      operationId: postAuthToken
+        - Auth
       requestBody:
-        description: Dados para autenticar o usuário
+        description: 'Data to authenticate user'
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AuthorizationRequest'
+              $ref: '#/components/schemas/AuthRequest'
         required: true
       responses:
         '200':
-          description: Token JWT do usuário autenticado
+          description: 'Authenticated user JWT token'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthorizationResponse'
+                $ref: '#/components/schemas/AuthResponse'
         '400':
-          description: Requisição inválida
+          description: 'Invalid requisition'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationErrorResponse'
         '403':
-          description: Acesso negado
+          description: 'Access denied'
         '500':
-          description: Erro no servidor
-  /car:
-    post:
-      tags:
-        - Carro
-      summary: Cria carro
-      description: Cria um carro para usar na aplicação
-      operationId: createCar
-      requestBody:
-        description: Dados para criar o carro
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateCarRequest'
-        required: true
-      responses:
-        '200':
-          description: Retorno de sucesso na requisição
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CreateCarRequest'
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationErrorResponse'
-        '403':
-          description: Acesso negado
-        '409':
-          description: Conflito
-        '500':
-          description: Erro no servidor
-      security:
-        - JwtAuth: []
-    get:
-      tags:
-        - Carro
-      summary: Retorna carros
-      description: Retorna uma lista de carros cadastrados na base de dados
-      operationId: getCar
-      responses:
-        '200':
-          description: Lista de carros retornada
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CarResponse'
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationErrorResponse'
-        '403':
-          description: Acesso negado
-        '409':
-          description: Conflito
-        '500':
-          description: Erro no servidor
-      security:
-        - JwtAuth: []
-  /car/{id}:
-    get:
-      tags:
-        - Carro
-      summary: Retorna um carro
-      description: Retorna um carro específico
-      operationId: getCarId
-      parameters:
-        - name: id
-          in: path
-          description: Id do carro
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: '24ecaee2-9550-40e0-bc3f-58779dcdc92c'
-      responses:
-        '200':
-          description: Carro retornado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CreateCarRequest'
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationErrorResponse'
-        '403':
-          description: Acesso negado
-        '409':
-          description: Conflito
-        '500':
-          description: Erro no servidor
-      security:
-        - JwtAuth: []
-    put:
-      tags:
-        - Carro
-      summary: Altera os dados de um carro
-      description: Altera os dados um carro específico
-      operationId: putCarId
-      parameters:
-        - name: id
-          in: path
-          description: Id do carro
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: '24ecaee2-9550-40e0-bc3f-58779dcdc92c'
-      requestBody:
-        description: Dados para criar o carro
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateUserRequest'
-        required: true
-      responses:
-        '200':
-          description: Carro alterado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CreateCarRequest'
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationErrorResponse'
-        '403':
-          description: Acesso negado
-        '409':
-          description: Conflito
-        '500':
-          description: Erro no servidor
-      security:
-        - JwtAuth: []
-  /client:
-    post:
-      tags:
-        - Cliente
-      summary: Cria Cliente
-      description: Cria um cliente para usar a aplicação
-      operationId: createClient
-      requestBody:
-        description: Dados para criar o cliente
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateClientRequest'
-        required: true
-      responses:
-        '204':
-          description: Retorno de sucesso na requisição
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationErrorResponse'
-        '403':
-          description: Acesso negado
-        '409':
-          description: Conflito
-        '500':
-          description: Erro no servidor
-    get:
-      tags:
-        - Cliente
-      summary: Retorna clientes
-      description: Retorna todos os clientes
-      operationId: getAllClient
-      responses:
-        '200':
-          description: Retorna todos os clientes cadastrados
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetAllClientsResponse'
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationErrorResponse'
-        '403':
-          description: Acesso negado
-        '500':
-          description: Erro no servidor
-  /client/{id}:
-    get:
-      tags:
-        - Cliente
-      summary: Retorna cliente
-      description: Retorna um cliente específico
-      operationId: getClient
-      parameters:
-        - name: id
-          in: path
-          description: Id do cliente
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 'b1c51f6a-73d4-11ec-90d6-0242ac120003'
-
-      responses:
-        '200':
-          description: Retorna um cliente pelo UUID.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetClientResponse'
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationErrorResponse'
-        '403':
-          description: Acesso negado
-        '500':
-          description: Erro no servidor
-    put:
-      tags:
-        - Cliente
-      summary: Atualiza cliente
-      description: Atualiza um cliente específico
-      operationId: updateClient
-      parameters:
-        - name: id
-          in: path
-          description: Id do cliente
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: 'b1c51f6a-73d4-11ec-90d6-0242ac120003'
-      requestBody:
-        description: Dados para atualizar o cliente
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateClientRequest'
-      responses:
-        '204':
-          description: Sucesso na requisição solicitada.
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationErrorResponse'
-        '403':
-          description: Acesso negado
-        '500':
-          description: Erro no servidor
-  /purchase:
-    post:
-      tags:
-        - Pedido
-      summary: Cria Pedido
-      description: Cria um Pedido para usar na aplicação
-      operationId: createPurchase
-      requestBody:
-        description: Dados para criar o Pedido
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreatePurchaseRequest'
-        required: true
-      responses:
-        '204':
-          description: Retorno de sucesso na requisição
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationErrorResponse'
-        '403':
-          description: Acesso negado
-        '409':
-          description: Conflito
-        '500':
-          description: Erro no servidor
-    get:
-      tags:
-        - Pedido
-      summary: Retorna todos Pedido
-      description: Retorna todos pedidos
-      operationId: getAllPurchase
-      responses:
-        '200':
-          description: Token JWT do usuário autenticado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetPurchaseItems'
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationErrorResponse'
-        '403':
-          description: Acesso negado
-        '500':
-          description: Erro no servidor
-      security:
-        - JwtAuth: []
-  /purchase{id}:
-    get:
-      tags:
-        - Pedido
-      summary: Retorna Pedido
-      description: Retorna um Pedido específico
-      operationId: getPurchase
-      parameters:
-        - name: id
-          in: path
-          description: Id do pedido
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: '2adb75dd-9e1f-4d67-a573-af7e7ef089b4'
-      responses:
-        '200':
-          description: Token JWT do usuário autenticado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetPurchaseItems'
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationErrorResponse'
-        '403':
-          description: Acesso negado
-        '500':
-          description: Erro no servidor
-      security:
-        - JwtAuth: []
-  /user:
-    post:
-      tags:
-        - Usuário
-      summary: Cria usuário
-      description: Cria um usuário para usar na aplicação
-      operationId: createUser
-      requestBody:
-        description: Dados para criar o usuário
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateUserRequest'
-        required: true
-      responses:
-        '204':
-          description: Retorno de sucesso na requisição
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationErrorResponse'
-        '403':
-          description: Acesso negado
-        '409':
-          description: Conflito
-        '500':
-          description: Erro no servidor
-  /user/{id}:
-    get:
-      tags:
-        - Usuário
-      summary: Retorna usuário
-      description: Retorna um usuário específico
-      operationId: getUser
-      parameters:
-        - name: id
-          in: path
-          description: Id do usuário
-          required: true
-          schema:
-            type: string
-            format: uuid
-            example: '2adb75dd-9e1f-4d67-a573-af7e7ef089b4'
-      responses:
-        '200':
-          description: Token JWT do usuário autenticado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetUserResponse'
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationErrorResponse'
-        '403':
-          description: Acesso negado
-        '500':
-          description: Erro no servidor
-      security:
-        - JwtAuth: []
+          description: 'Internal error in service'
 components:
   schemas:
-    AuthorizationRequest:
+    AuthRequest:
       type: object
       required:
         - username
@@ -518,331 +69,45 @@ components:
       properties:
         username:
           type: string
-          description: Login do usuário
-          example: 'email@dominio.com'
+          description: 'Username to access system'
+          example: 'admin@gmail.com'
         password:
           type: string
-          description: Senha do usuário
           format: password
-          example: 'Senha@123'
-    AuthorizationResponse:
+          description: 'Password to access system'
+          example: 'admin@123'
+    AuthResponse:
       type: object
       required:
-        - accessToken
-        - refreshToken
+        - acessToken
         - tokenType
         - expiresIn
       properties:
         accessToken:
           type: string
-          description: Token de autenticação
-          example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+          description: 'Jwt token'
+          example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InV1aWQiOiJkMzZhMGZlYS0yMmZlLTQ4MzItYmE2Mi03ZTQzMzNjMzEwMDEifSwiaWF0IjoxNjUzMTQ0OTgyLCJleHAiOjE2NTMxNDUwNDJ9.9KpVJJ9Z-6w-4hcwTVEIOUCS4ouq9j9lagJT5T2egUs'
         tokenType:
           type: string
-          description: Tipo do token de autenticação
+          description: 'Token type'
           example: 'Bearer'
         expiresIn:
-          type: number
-          description: Tempo de expiração do token
-          example: 86400
+          type: integer
+          description: 'Minutes to token expires'
+          example: 60
     ValidationErrorResponse:
       required:
         - code
         - message
       properties:
         code:
-          description: Código do erro
+          description: 'Error code'
           type: string
-          example: 'CAMPO_INVALIDO'
+          example: 'INVALID_FIELD'
         message:
-          description: Mensagem do erro
+          description: 'Error message'
           type: string
-          example: 'O campo name é obrigatório'
-    CreateClientRequest:
-      type: object
-      required:
-        - name
-        - email
-        - tax_id
-        - phone_number
-        - zip_code
-        - number
-        - complement
-      properties:
-        name:
-          type: string
-          description: Nome do cliente
-          example: 'Bruno Duarte'
-        email:
-          type: string
-          description: Email do cliente
-          example: 'bruno.duarte@bhut.com.br'
-        tax_id:
-          type: string
-          description: CPF do cliente
-          example: '111.222.333-44'
-        phone_number:
-          type: string
-          description: Telefone do cliente
-          example: '19123456789'
-        zip_code:
-          type: string
-          description: CEP do cliente
-          example: '13063-070'
-        number:
-          type: string
-          description: Número da residência do cliente
-          example: '25'
-        complement:
-          type: string
-          description: Complemento de onde o cliente reside
-          example: 'Bloco C apartamento 612'
-    GetClientResponse:
-      type: object
-      required:
-        - uuid
-        - name
-        - tax_id
-        - phone_number
-        - email
-        - zip_code
-        - number
-        - complement
-        - street
-        - district
-        - city
-        - state
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          description: Uuid do cliente
-          example: 'b1c51f6a-73d4-11ec-90d6-0242ac120003'
-        name:
-          type: string
-          description: Nome do cliente
-          example: 'Bruno Duarte'
-        email:
-          type: string
-          description: Email do cliente
-          example: 'bruno.duarte@bhut.com.br'
-        tax_id:
-          type: string
-          description: CPF do cliente
-          example: '111.222.333-44'
-        phone_number:
-          type: string
-          description: Telefone do cliente
-          example: '19123456789'
-        zip_code:
-          type: string
-          description: CEP do cliente
-          example: '13063-070'
-        number:
-          type: string
-          description: Número da residência do cliente
-          example: '25'
-        complement:
-          type: string
-          description: Complemento de onde o cliente reside
-          example: 'Bloco C apartamento 612'
-        street:
-          type: string
-          description: Rua onde o cliente reside
-          example: 'Rua Antônio Maria Brandão'
-        district:
-          type: string
-          description: Bairro onde o cliente reside
-          example: 'Jardim Eulina'
-        city:
-          type: string
-          description: Cidade onde o cliente reside
-          example: 'Campinas'
-        state:
-          type: string
-          description: Estado onde o cliente reside
-          example: 'SP'
-    GetAllClientsResponse:
-      type: array
-      items:
-        allOf:
-          - $ref: '#/components/schemas/GetClientResponse'
-    UpdateClientRequest:
-      type: object
-      required:
-        - name
-        - email
-        - phone_number
-        - zip_code
-        - number
-        - street
-        - district
-        - city
-        - state
-      properties:
-        name:
-          type: string
-          description: Nome do cliente
-          example: 'Bruno Duarte Oliveira'
-        email:
-          type: string
-          description: Email do cliente
-          example: 'bruno.duarte@bhut.com.br'
-        phone_number:
-          type: string
-          description: Telefone do cliente
-          example: '19234567891'
-        zip_code:
-          type: string
-          description: CEP do cliente
-          example: '13063-070'
-        number:
-          type: string
-          description: Número da residência do cliente
-          example: '25'
-        street:
-          type: string
-          description: Rua onde o cliente reside
-          example: 'Rua Antônio Maria Brandão'
-        district:
-          type: string
-          description: Bairro onde o cliente reside
-          example: 'Jardim Eulina'
-        city:
-          type: string
-          description: Cidade onde o cliente reside
-          example: 'Campinas'
-        state:
-          type: string
-          description: Estado onde o cliente reside
-          example: 'SP'
-    CreatePurchaseItems:
-      type: object
-      required:
-        - carUuid
-        - price
-        - quantity
-      properties:
-        carUuid:
-          type: string
-          format: uuid
-          description: Uuid do usuário
-          example: '66e442bd-c990-45df-91f5-ad8350ce4374'
-        price:
-          type: number
-          description: preço do item
-          example: 15000
-        quantity:
-          type: number
-          description: quantidade do item
-          example: 15000
-    CreatePurchaseRequest:
-      type: object
-      required:
-        - clientUuid
-        - items
-      properties:
-        clientUuid:
-          type: string
-          format: uuid
-          description: Uuid do cliente
-          example: '66e442bd-c990-45df-91f5-ad8350ce4374'
-        items:
-          type: array
-          items:
-            allOf:
-              - $ref: '#/components/schemas/CreatePurchaseItems'
-    GetPurchaseItems:
-      type: object
-      required:
-        - carUuid
-        - price
-        - quantity
-        - amount
-      properties:
-        carUuid:
-          type: string
-          format: uuid
-          description: Uuid do usuário
-          example: '66e442bd-c990-45df-91f5-ad8350ce4374'
-        price:
-          type: number
-          description: preço do item
-          example: 15000
-        quantity:
-          type: number
-          description: quantidade do item
-          example: 15000
-        amount:
-          type: number
-          description: preço do pedido
-          example: 225000
-    CreateUserRequest:
-      type: object
-      required:
-        - name
-        - yaer
-        - model
-        - price
-      properties:
-        name:
-          type: string
-          description: Nome do carro
-          example: 'Civic type R'
-        price:
-          type: number
-          description: preço do carro
-          example: 15000
-    CreateCarRequest:
-      type: object
-      required:
-        - name
-        - yaer
-        - model
-        - price
-      properties:
-        name:
-          type: string
-          description: Nome do carro
-          example: 'Civic type R'
-        year:
-          type: number
-          description: Ano do carro
-          example: 2020
-        model:
-          type: string
-          format: password
-          description: marca do carro
-          example: 'HONDA'
-        price:
-          type: number
-          description: preço do carro
-          example: 15000
-    CarResponse:
-      type: array
-      items:
-        allOf:
-          - $ref: '#/components/schemas/CreateCarRequest'
-    GetUserResponse:
-      type: object
-      required:
-        - uuid
-        - name
-        - email
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          description: Uuid do usuário
-          example: '66e442bd-c990-45df-91f5-ad8350ce4374'
-        name:
-          type: string
-          description: Nome do usuário
-          example: 'Lucas Fonte'
-        email:
-          type: string
-          description: Email do usuário
-          example: 'lucas.fonte@bhut.com.br'
+          example: 'The field username is required'
   securitySchemes:
     JwtAuth:
       type: http
