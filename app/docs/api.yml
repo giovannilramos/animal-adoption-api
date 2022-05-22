@@ -83,6 +83,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
         '403':
           description: 'Access denied'
         '500':
@@ -119,6 +121,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
         '403':
           description: 'Access denied'
         '404':
@@ -160,6 +164,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
         '403':
           description: 'Access denied'
         '404':
@@ -193,6 +199,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
         '403':
           description: 'Access denied'
         '500':
@@ -220,6 +228,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
         '403':
           description: 'Access denied'
         '500':
@@ -255,6 +265,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
         '403':
           description: 'Access denied'
         '404':
@@ -263,6 +275,270 @@ paths:
           description: 'Internal error in service'
       security:
         - JwtAuth: [ ]
+  # PEOPLE
+  /people:
+    post:
+      summary: 'Create a person'
+      description: 'Create a person and insert into system'
+      operationId: 'createPerson'
+      tags:
+        - People
+      requestBody:
+        description: 'Data to create a person'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePeopleRequest'
+        required: true
+      responses:
+        '204':
+          description: 'Request processed'
+
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
+        '403':
+          description: 'Access denied'
+        '409':
+          description: 'Conflict'
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/ResourceAlreadyExistsResponse'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
+    get:
+      summary: 'List people'
+      description: 'Return a list of people'
+      operationId: 'getPeopleList'
+      tags:
+        - People
+      responses:
+        '200':
+          description: 'Sucess'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PeopleResponse'
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
+        '403':
+          description: 'Access denied'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
+  /people/{uuid}:
+    get:
+      summary: 'return a person'
+      description: 'return one person'
+      operationId: 'getPersonById'
+      tags:
+        - People
+      parameters:
+        - name: uuid
+          in: path
+          description: 'Uuid of person'
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: '35d00fad-9f28-437d-934c-6b798a23a72b'
+      responses:
+        '200':
+          description: 'sucess'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PeopleResponse'
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
+        '403':
+          description: 'Access denied'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
+    put:
+      summary: 'Update person'
+      description: 'Update one person and insert changes into system'
+      operationId: 'updatePerson'
+      tags:
+        - People
+      parameters:
+        - name: uuid
+          in: path
+          description: 'Uuid of person'
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: '35d00fad-9f28-437d-934c-6b798a23a72b'
+      requestBody:
+        description: 'Data to create a person'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePeopleRequest'
+        required: true
+      responses:
+        '204':
+          description: 'Request processed'
+
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
+        '403':
+          description: 'Access denied'
+        '409':
+          description: 'Conflict'
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/ResourceAlreadyExistsResponse'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
+    delete:
+      summary: 'Delete person'
+      description: 'Delete one person'
+      operationId: 'deletePerson'
+      tags:
+        - People
+      parameters:
+        - name: uuid
+          in: path
+          description: 'Uuid of person'
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: '35d00fad-9f28-437d-934c-6b798a23a72b'
+      responses:
+        '204':
+          description: 'Request processed'
+
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
+        '403':
+          description: 'Access denied'
+        '409':
+          description: 'Conflict'
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/ResourceAlreadyExistsResponse'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
+  /people/{uuid}/inactivate:
+    patch:
+      summary: 'Inactivate person'
+      description: 'Inactivate one person'
+      tags:
+        - People
+      operationId: 'inactivatePerson'
+      parameters:
+        - name: uuid
+          in: path
+          description: 'Uuid of the person to be inactivated'
+          schema:
+            type: string
+            format: uuid
+            example: '7a5a1e4c-317e-4abe-b302-b88639bb2ac0'
+          required: true
+      responses:
+        '204':
+          description: 'request processed'
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
+        '403':
+          description: 'Access denied'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: []
+  /people/{uuid}/activate:
+    patch:
+      summary: 'Activate person'
+      description: 'activate one person'
+      tags:
+        - People
+      operationId: 'activatePerson'
+      parameters:
+        - name: uuid
+          in: path
+          description: 'Uuid of the person to be activated'
+          schema:
+            type: string
+            format: uuid
+            example: '7a5a1e4c-317e-4abe-b302-b88639bb2ac0'
+          required: true
+      responses:
+        '204':
+          description: 'request processed'
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
+        '403':
+          description: 'Access denied'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: []
 components:
   schemas:
     AdoptionDataResponse:
@@ -399,6 +675,169 @@ components:
           type: string
           description: 'Specie of animal'
           example: 'Dog'
+    CreatePeopleRequest:
+      type: object
+      required:
+        - name
+        - cpf
+        - rg
+        - street
+        - city
+        - district
+        - country
+        - number
+        - birth_date
+      properties:
+        name:
+          type: string
+          description: 'Name of person'
+          example: 'Lucas Fonte'
+        cpf:
+          type: string
+          description: 'Cpf of person'
+          example: '123.456.789-10'
+        rg:
+          type: string
+          description: 'RG of person'
+          example: '524568562'
+        street:
+          type: string
+          description: 'Street where person address is registered'
+          example: 'Atlantic Avenue'
+        number:
+          type: string
+          description: 'Number where person lives'
+          example: '1983'
+        district:
+          type: string
+          description: 'district where person address is registered'
+          example: 'Queens'
+        city:
+          type: string
+          description: 'city where person address is registered'
+          example: 'New York'
+        country:
+          type: string
+          description: 'country where person address is registered'
+          example: 'USA'
+        birth_date:
+          type: string
+          description: 'Birth date of person'
+          example: '2001-08-25'
+    PeopleResponse:
+      type: object
+      required:
+        - uuid
+        - cpf
+        - name
+        - rg
+        - city
+        - district
+        - street
+        - country
+        - number
+        - birth_date
+        - active
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: 'Person uuid'
+          example: '34b9eab9-60e6-417b-8703-a41e74f2a74b'
+        name:
+          type: string
+          description: 'Name of person'
+          example: 'Lucas Fonte'
+        cpf:
+          type: string
+          description: 'Cpf of person'
+          example: '123.456.789-10'
+        rg:
+          type: string
+          description: 'RG of person'
+          example: '524568562'
+        street:
+          type: string
+          description: 'Street where person address is registered'
+          example: 'Atlantic Avenue'
+        number:
+          type: string
+          description: 'Number where person lives'
+          example: '1983'
+        district:
+          type: string
+          description: 'district where person address is registered'
+          example: 'Queens'
+        city:
+          type: string
+          description: 'city where person address is registered'
+          example: 'New York'
+        country:
+          type: string
+          description: 'country where person address is registered'
+          example: 'USA'
+        birth_date:
+          type: string
+          description: 'Birth date of person'
+          example: '2001-08-25'
+        active:
+          type: boolean
+          description: 'Checks if the person is active'
+          example: true
+    ResourceAlreadyExistsResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                  - 'RESOURCE_ALREADY_EXISTS'
+              message:
+                type: string
+                example: 'This resource already exists'
+    UpdatePeopleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'Name of person'
+          example: 'Lucas Fonte'
+        cpf:
+          type: string
+          description: 'Cpf of person'
+          example: '123.456.789-10'
+        rg:
+          type: string
+          description: 'RG of person'
+          example: '524568562'
+        street:
+          type: string
+          description: 'Street where person address is registered'
+          example: 'Atlantic Avenue'
+        number:
+          type: string
+          description: 'Number where person lives'
+          example: '1983'
+        district:
+          type: string
+          description: 'district where person address is registered'
+          example: 'Queens'
+        city:
+          type: string
+          description: 'city where person address is registered'
+          example: 'New York'
+        country:
+          type: string
+          description: 'country where person address is registered'
+          example: 'USA'
+        birth_date:
+          type: string
+          description: 'Birth date of person'
+          example: '2001-08-25'
     ValidationErrorResponse:
       required:
         - code
