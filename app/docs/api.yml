@@ -539,6 +539,115 @@ paths:
           description: 'Internal error in service'
       security:
         - JwtAuth: []
+  # VACCINES
+  /vaccines:
+    post:
+      summary: 'Create a vaccine'
+      description: 'Create a vaccine and insert into system'
+      operationId: 'createVaccine'
+      tags:
+        - Vaccines
+      requestBody:
+        description: 'Data to create a vaccine'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVaccineRequest'
+        required: true
+      responses:
+        '204':
+          description: 'Request processed'
+
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
+        '403':
+          description: 'Access denied'
+        '409':
+          description: 'Conflict'
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/ResourceAlreadyExistsResponse'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
+    get:
+      summary: 'List vaccines'
+      description: 'Return a list of vaccines'
+      operationId: 'getVaccinesList'
+      tags:
+        - Vaccines
+      responses:
+        '200':
+          description: 'Sucess'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VaccineResponse'
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
+        '403':
+          description: 'Access denied'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
+  /vaccines/{uuid}:
+    get:
+      summary: 'return a vaccine'
+      description: 'return one vaccine'
+      operationId: 'getVaccineById'
+      tags:
+        - Vaccines
+      parameters:
+        - name: uuid
+          in: path
+          description: 'Uuid of vaccine'
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: '4d2d39af-8ebe-48fe-aa5a-bc0e3bb01a33'
+      responses:
+        '200':
+          description: 'sucess'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VaccineResponse'
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
+        '403':
+          description: 'Access denied'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
 components:
   schemas:
     AdoptionDataResponse:
@@ -724,6 +833,15 @@ components:
           type: string
           description: 'Birth date of person'
           example: '2001-08-25'
+    CreateVaccineRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Name of vaccine
+          example: 'Pfizer'
     PeopleResponse:
       type: object
       required:
@@ -838,6 +956,20 @@ components:
           type: string
           description: 'Birth date of person'
           example: '2001-08-25'
+    VaccineResponse:
+      type: object
+      required:
+        - uuid
+        - name
+      properties:
+        uuid:
+          type: string
+          description: Uuid of vaccine
+          example: '4d2d39af-8ebe-48fe-aa5a-bc0e3bb01a33'
+        name:
+          type: string
+          description: Name of Vaccine
+          example: 'Pfizer'
     ValidationErrorResponse:
       required:
         - code
