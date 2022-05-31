@@ -648,6 +648,124 @@ paths:
           description: 'Internal error in service'
       security:
         - JwtAuth: [ ]
+  # VACCINATED ANIMALS
+  /vaccinated-animals/{uuid_animals}:
+    post:
+      summary: 'Create a vaccinated animal'
+      description: 'Create a vaccinated animal and insert into system'
+      operationId: 'createVaccinatedAnimal'
+      tags:
+        - Vaccinated Animals
+      parameters:
+        - name: uuid_animals
+          in: path
+          description: 'Uuid of animal'
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: '35d00fad-9f28-437d-934c-6b798a23a72b'
+      requestBody:
+        description: 'Data to create a vaccinated animal'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVaccinatedAnimalsRequest'
+        required: true
+      responses:
+        '204':
+          description: 'Request processed'
+
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
+        '403':
+          description: 'Access denied'
+        '409':
+          description: 'Conflict'
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/ResourceAlreadyExistsResponse'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
+    get:
+      summary: 'List vaccinated animals by animal id'
+      description: 'Return a list of vaccinated animals by animal id'
+      operationId: 'getVaccinatedAnimalsByIdList'
+      tags:
+        - Vaccinated Animals
+      parameters:
+        - name: uuid_animals
+          in: path
+          description: 'Uuid of animal'
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: '35d00fad-9f28-437d-934c-6b798a23a72b'
+      responses:
+        '200':
+          description: 'Sucess'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VaccinatedAnimalsResponse'
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
+        '403':
+          description: 'Access denied'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
+  /vaccinated-animals:
+    get:
+      summary: 'List vaccinated animals'
+      description: 'Return a list of vaccinated animals'
+      operationId: 'getVaccinatedAnimalsList'
+      tags:
+        - Vaccinated Animals
+      responses:
+        '200':
+          description: 'Sucess'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VaccinatedAnimalsResponse'
+        '400':
+          description: 'Invalid requisition'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: 'Invalid or inexistent jwt token'
+        '403':
+          description: 'Access denied'
+        '500':
+          description: 'Internal error in service'
+      security:
+        - JwtAuth: [ ]
 components:
   schemas:
     AdoptionDataResponse:
@@ -833,6 +951,21 @@ components:
           type: string
           description: 'Birth date of person'
           example: '2001-08-25'
+    CreateVaccinatedAnimalsRequest:
+      type: object
+      required:
+        - uuid_vaccines
+        - vaccination_date
+      properties:
+        uuid_vaccines:
+          type: string
+          format: uuid
+          description: Uuid of vaccine
+          example: '4d2d39af-8ebe-48fe-aa5a-bc0e3bb01a33'
+        vaccination_date:
+          type: string
+          format: date
+          example: '2022-06-01'
     CreateVaccineRequest:
       type: object
       required:
@@ -956,6 +1089,34 @@ components:
           type: string
           description: 'Birth date of person'
           example: '2001-08-25'
+    VaccinatedAnimalsResponse:
+      type: object
+      required:
+        - uuid
+        - uuid_animals
+        - uuid_vaccines
+        - vaccination_date
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: 'Vaccinated animal uuid'
+          example: 'fffb99fd-8fc3-4f6f-b22a-da9b2c1a173c'
+        uuid_animals:
+          type: string
+          format: uuid
+          description: 'animal uuid'
+          example: 'dbc62ae0-fd63-46a6-a598-ba9adf37f63a'
+        uuid_vaccines:
+          type: string
+          format: uuid
+          description: 'vaccine uuid'
+          example: 'afabdc67-deb5-45fb-a3ff-223273771a67'
+        vaccination_date:
+          type: string
+          format: date
+          description: 'vaccination date'
+          example: '2022-06-01'
     VaccineResponse:
       type: object
       required:
