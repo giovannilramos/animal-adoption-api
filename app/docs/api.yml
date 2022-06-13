@@ -155,7 +155,7 @@ paths:
             format: uuid
             example: '35d00fad-9f28-437d-934c-6b798a23a72b'
       responses:
-        '204':
+        '201':
           description: 'Request processed'
 
         '400':
@@ -190,7 +190,7 @@ paths:
               $ref: '#/components/schemas/CreateAnimalRequest'
         required: true
       responses:
-        '204':
+        '201':
           description: 'Request processed'
 
         '400':
@@ -291,7 +291,7 @@ paths:
               $ref: '#/components/schemas/CreatePeopleRequest'
         required: true
       responses:
-        '204':
+        '201':
           description: 'Request processed'
 
         '400':
@@ -555,7 +555,7 @@ paths:
               $ref: '#/components/schemas/CreateVaccineRequest'
         required: true
       responses:
-        '204':
+        '201':
           description: 'Request processed'
 
         '400':
@@ -673,7 +673,7 @@ paths:
               $ref: '#/components/schemas/CreateVaccinatedAnimalsRequest'
         required: true
       responses:
-        '204':
+        '201':
           description: 'Request processed'
 
         '400':

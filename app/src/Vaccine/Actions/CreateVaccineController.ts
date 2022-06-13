@@ -12,7 +12,7 @@ export class CreateVaccineController {
 
       await this.service.invoke(dto);
 
-      return res.status(204).send();
+      return res.status(201).send();
     } catch (error) {
       next(error);
     }
